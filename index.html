@@ -48,7 +48,7 @@
           
           <form name="contatoForm">
             
-            <div ng-show="contatoForm.$invalid" class="alert alert-danger">
+            <div ng-show="contatoForm.$invalid && contatoForm.$dirty" class="alert alert-danger">
               
               <div ng-messages="contatoForm.nome.$error">
               

@@ -4,10 +4,7 @@ angular
 
       $scope.app = 'Lista Telefônica';
       
-      $scope.contatos = [
-        {nome: "Ananias", telefone: "99873322", data: new Date(), operadora : {nome: "Tim", codigo: 41, categoria: "Celular"}},
-      ];
-
+      $scope.contatos = [];
       $scope.operadoras = [];
 
       var carregarContatos = function(){
@@ -30,7 +27,7 @@ angular
         contato.data = new Date();
         contato.serial = serialGenerator.generate();
         console.log(contato);
-        
+
         contatosApi
           .saveContato(contato)
           .success(function(data){
