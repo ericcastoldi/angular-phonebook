@@ -2,111 +2,24 @@
 <html ng-app="phonebook">
     <head>
         <meta charset="utf-8">
+
         <title>Phonebook</title>
         
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-        <style>
-          .jumbotron{
-            width: 550px;
-            text-align: center;
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
-          }
-          
-          h4{
-            font-weight: bold;
-          }
-
-          .table{
-            margin-top: 15px;
-            text-align: left;
-          }
-          
-          hr, .table, .form-control, .btn{
-            width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 10px;
-          }
-
-          .selecionado{
-            background-color: yellow;
-          }
-
-          .negrito{
-            font-weight: bold; 
-          }
-        </style>
+        <link rel="stylesheet" href="css/app.css">        
 
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-messages/angular-messages.js"></script>
+        
+        <script src="js/app.js"></script>
+        <script src="js/value/config.js"></script>
 
-        <script>
-          angular.module("phonebook", ["ngMessages"]);
+        <script src="js/providers/serialGeneratorProvider.js"></script>
 
-          angular
-            .module("phonebook")
-            .controller("phonebookController", function($scope, $http){
-
-                $scope.app = 'Lista Telefônica';
-                
-                $scope.contatos = [
-                  {nome: "Ananias", telefone: "99873322", data: new Date(), operadora : {nome: "Tim", codigo: 41, categoria: "Celular"}},
-                ];
-
-                $scope.operadoras = [];
-
-                var carregarContatos = function(){
-                  $http
-                    .get("http://localhost:1337/contatos")
-                    .success(function(data){
-                      $scope.contatos = data;
-                    });
-                };
-
-                var carregarOperadoras = function(){
-                  $http
-                    .get("http://localhost:1337/operadoras")
-                    .success(function(data){
-                      $scope.operadoras = data;
-                    });
-                };
-
-                $scope.adicionarContato = function(contato){
-                  contato.data = new Date();
-
-                  $http
-                    .post("http://localhost:1337/contatos", contato)
-                    .success(function(data){
-                      $scope.contatos = data;
-
-                      delete $scope.contato;
-                      $scope.contatoForm.$setPristine();
-                    });
-                  
-                  
-                };
-
-                $scope.isContatoSelecionado = function(contatos){
-                  return contatos.some(function(contato){
-                    return contato.selecionado;
-                  });
-                };
-
-                $scope.apagarContatos = function(contatos){
-                  $scope.contatos = contatos.filter(function(contato){
-                    if (!contato.selecionado) return contato;
-                  });
-                };
-
-                carregarContatos();
-                carregarOperadoras();
-
-            });
-
-
-        </script>
+        <script src="js/services/contatosApiService.js"></script>
+        <script src="js/services/operadorasApiService.js"></script>
+        <script src="js/controllers/phonebookController.js"></script>
+        <script src="js/config/serialGeneratorConfig.js"></script>
     </head>
     <body ng-controller="phonebookController">
         
@@ -199,6 +112,6 @@
           </form>
         
         </div>
-        <div ng-include="'footer.html'"></div>
+        <div ng-include="'views/footer.html'"></div>
     </body>
 </html>
