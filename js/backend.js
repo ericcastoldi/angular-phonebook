@@ -38,7 +38,7 @@ app.get('/contatos', function(request, response) {
 });
 
 app.post('/contatos', function(request, response){
-  var contato = request.body.contato;
+  var contato = request.body;
   console.log(contato);
   contatos.push(contato);
 
